@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Perencanaan Asesmen MAPA & MUK 2023 - BNSP</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #0b2545;
+      --primary-light: #134074;
+      --accent: #d90429;
+      --accent-warm: #f77f00;
+      --bg-main: #f4f6f9;
+      --bg-card: #ffffff;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+      --border-subtle: #e2e8f0;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --header-height: 80px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ========================================================
+       STATIC / STICKY HEADER WITH OFFICIAL BNSP VECTOR LOGO
+       ======================================================== */
+    header.bnsp-static-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      border-bottom: 2px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(11, 37, 69, 0.08);
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .bnsp-logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .bnsp-logo-svg {
+      height: 48px;
+      width: auto;
+    }
+
+    .header-title-block {
+      border-left: 2px solid var(--border-color);
+      padding-left: 1.25rem;
+    }
+
+    .header-title-block h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .header-title-block p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .developer-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 8px rgba(11, 37, 69, 0.2);
+    }
+
+    .developer-badge i {
+      color: var(--accent-warm);
+    }
+
+    .developer-badge .dev-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .developer-badge .dev-name {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .developer-badge .dev-title {
+      font-size: 0.7rem;
+      color: #94d2bd;
+    }
+
+    /* ========================================================
+       MAIN APP LAYOUT
+       ======================================================== */
+    .app-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: 290px;
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .nav-category {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0.75rem 0.75rem 0.25rem 0.75rem;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-item i {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .nav-item:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    .nav-item.active {
+      background: #eef4ff;
+      color: var(--primary);
+      border-color: #c7d9fe;
+    }
+
+    .nav-item.active i {
+      color: var(--primary);
+    }
+
+    /* Main Content Area */
+    main.content-area {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+      max-width: 1400px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================================
+       UI CARDS, MATRICES & COMPONENTS
+       ======================================================== */
+    .hero-banner {
+      background: linear-gradient(135deg, #0b2545 0%, #1d4e89 100%);
+      color: #ffffff;
+      padding: 2.25rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(11, 37, 69, 0.25);
+    }
+
+    .hero-banner h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-banner p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      max-width: 850px;
+    }
+
+    .module-code-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Grid Workflow */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .workflow-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      transition: all 0.25s ease;
+      border-top: 4px solid var(--primary);
+    }
+
+    .workflow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .workflow-step-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      background: #eef4ff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .workflow-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0.5rem 0 0.75rem 0;
+    }
+
+    .workflow-card ul {
+      padding-left: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .workflow-card ul li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* Tables */
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background: #ffffff;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #f8fafc;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-color);
+      vertical-align: top;
+    }
+
+    table.data-table tr:hover {
+      background-color: #fcfdfe;
+    }
+
+    .form-table-header {
+      background: #0b2545 !important;
+      color: #ffffff !important;
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+    }
+
+    .form-table-subheader {
+      background: #f1f5f9 !important;
+      color: #0b2545 !important;
+      font-weight: 700;
+    }
+
+    .form-guidelines-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-guidelines-box h5 {
+      color: var(--primary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-guidelines-box ul {
+      padding-left: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+    }
+
+    .form-guidelines-box ul li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* Editable Styling Highlights */
+    [contenteditable="true"] {
+      outline: none;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+
+    [contenteditable="true"]:hover {
+      background-color: #eff6ff;
+      box-shadow: 0 0 0 1px #93c5fd;
+      cursor: text;
+    }
+
+    [contenteditable="true"]:focus {
+      background-color: #ffffff;
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-primary { background: #e0f2fe; color: #0369a1; }
+    .badge-success { background: #dcfce7; color: #15803d; }
+    .badge-warning { background: #fef3c7; color: #b45309; }
+    .badge-danger  { background: #fee2e2; color: #b91c1c; }
+
+    /* Interactive Form Elements */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+      background: #ffffff;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(19, 64, 116, 0.1);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-accent:hover {
+      background: #ba0321;
+    }
+
+    /* STAR Framework Box */
+    .star-box-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .star-card {
+      border-radius: 10px;
+      padding: 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .star-letter {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: rgba(11, 37, 69, 0.1);
+      line-height: 1;
+    }
+
+    .star-card h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .star-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Flowchart Visualization */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .flow-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+    }
+
+    .flow-step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .flow-step-desc h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .flow-step-desc p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .app-container {
+        flex-direction: column;
+      }
+      aside.sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .star-box-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      header.bnsp-static-header {
+        padding: 0 1rem;
+        height: auto;
+        min-height: var(--header-height);
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+    }
+    @media (max-width: 640px) {
+      .star-box-grid {
+        grid-template-columns: 1fr;
+      }
+      main.content-area {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="bnsp-static-header">
+    <div class="header-left">
+      <a href="#" class="bnsp-logo-container" title="Badan Nasional Sertifikasi Profesi">
+        <svg class="bnsp-logo-svg" viewBox="0 0 320 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="15" width="55" height="55" rx="3" fill="#1e1e1e"/>
+          <path d="M12 60 C 22 55, 32 40, 36 28 C 34 32, 28 42, 24 50 C 18 58, 14 62, 12 60 Z" fill="#F9A825"/>
+          <circle cx="36" cy="24" r="5" fill="#F9A825"/>
+          <path d="M4 35 L 20 48 L 48 8" stroke="#D32F2F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="72" y="48" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" fill="#1e293b" letter-spacing="1">BNSP</text>
+          <text x="73" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="9.5" fill="#475569" letter-spacing="0.3">BADAN NASIONAL SERTIFIKASI PROFESI</text>
+        </svg>
+      </a>
+
+      <div class="header-title-block">
+        <h1>MAPA & Perangkat MUK 2023</h1>
+        <p>Standar Merencanakan Aktivitas dan Proses Asesmen (M.74SPS03.088.2)</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="developer-badge">
+        <i class="fa-solid fa-user-check"></i>
+        <div class="dev-info">
+          <span class="dev-name">Iman N Bajuasijadji</span>
+          <span class="dev-title">version 1.0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="nav-category">Alur & Konsep Inti</div>
+      <div class="nav-item active" onclick="switchTab('tab-dashboard')">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard & Alur Utama
+      </div>
+      <div class="nav-item" onclick="switchTab('tab-mapa01')">
+        <i class="fa-solid fa-clipboard-list"></i> FR.MAPA.01 Perencanaan
+      </div>
+
+      <div class="nav-category">Metode & Instrumen Asesmen</div>
+      <div class="nav-item" onclick="switchTab('tab-observasi')">
+        <i class="fa-solid fa-eye"></i> Observasi Langsung (CL/TPD/PMO)
+      </div>
+      <div class="nav-item" onclick="switchTab('tab-terstruktur')">
+        <i class="fa-solid fa-diagram-project"></i> Kegiatan Terstruktur (Level 4+)
+      </div>
+      <div class="nav-item" onclick="switchTab('tab-portofolio')">
+        <i class="fa-solid fa-folder-open"></i> Verifikasi Portofolio (CVP/PW)
+      </div>
+      <div class="nav-item" onclick="switchTab('tab-tanyajawab')">
+        <i class="fa-solid fa-circle-question"></i> Uji Pengetahuan (DPT/DPL)
+      </div>
+
+      <div class="nav-category">Pemetaan & Otomasi</div>
+      <div class="nav-item" onclick="switchTab('tab-matriks')">
+        <i class="fa-solid fa-table-cells"></i> Matriks 5 Potensi Asesi
+      </div>
+      <div class="nav-item" onclick="switchTab('tab-generator')">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> STAR Scenario Generator
+      </div>
+    </aside>
+
+    <main class="content-area">
+
+      <!-- ========================================================
+           TAB 1: DASHBOARD
+           ======================================================== -->
+      <section id="tab-dashboard" class="tab-content active">
+        <div class="hero-banner">
+          <div class="module-code-pill">
+            <i class="fa-solid fa-certificate"></i> Modul Pelatihan Asesor: M.74SPS03.088.2
+          </div>
+          <h2>Implementasi Perangkat MUK 2023</h2>
+          <p>
+            Panduan teknis dan operasional asesor kompetensi dalam merencanakan aktivitas dan proses asesmen (MAPA), 
+            menentukan pendekatan asesmen, menyusun instrumen berbasis bukti berkualitas (VATM), dan memastikan pemenuhan 5 Dimensi Kompetensi.
+          </p>
+        </div>
+
+        <h3 style="margin-bottom: 1rem; color: var(--primary); font-size: 1.25rem;">
+          <i class="fa-solid fa-route"></i> Alur Merencanakan Aktivitas dan Proses Asesmen
+        </h3>
+
+        <div class="workflow-grid">
+          <div class="workflow-card">
+            <span class="workflow-step-badge">Tahap 1</span>
+            <h4>Menentukan Pendekatan Asesmen</h4>
+            <ul>
+              <li>Identifikasi Asesi (Pelatihan/Pengalaman/Otodidak)</li>
+              <li>Tujuan Asesmen (Sertifikasi/RCC/RPL/Kualifikasi)</li>
+              <li>Konteks Asesmen (Lingkungan, Peluang Bukti, Pelaksana)</li>
+              <li>Identifikasi Standar Acuan (SKKNI/SKKK/SI/SOP/SNI)</li>
+            </ul>
+          </div>
+
+          <div class="workflow-card">
+            <span class="workflow-step-badge">Tahap 2</span>
+            <h4>Mempersiapkan Rencana Asesmen</h4>
+            <ul>
+              <li>Analisis Unit Kompetensi & Persyaratan Bukti</li>
+              <li>Penentuan Jenis Bukti: Langsung (L), TL, Tambahan (T)</li>
+              <li>Pemenuhan Aturan Bukti (VATM)</li>
+              <li>Pemilihan Metode & Instrumen (IA.01 s/d IA.11)</li>
+            </ul>
+          </div>
+
+          <div class="workflow-card">
+            <span class="workflow-step-badge">Tahap 3</span>
+            <h4>Modifikasi & Kontekstualisasi</h4>
+            <ul>
+              <li>Identifikasi Karakteristik Khusus Peserta</li>
+              <li>Kontekstualisasi Terkait Kebutuhan Tempat Kerja</li>
+              <li>Pemeriksaan Rekomendasi Paket Pelatihan</li>
+              <li>Identifikasi Peluang Asesmen Terintegrasi</li>
+            </ul>
+          </div>
+
+          <div class="workflow-card">
+            <span class="workflow-step-badge">Tahap 4</span>
+            <h4>Menyusun Instrumen Asesmen</h4>
+            <ul>
+              <li>Penyusunan Ceklis Observasi & Skenario Praktik (STAR)</li>
+              <li>Penyusunan Instruksi Terstruktur Proyek (Level 4+)</li>
+              <li>Ceklis Verifikasi Portofolio & Pertanyaan Wawancara</li>
+              <li>Penyusunan Soal Uji Pengetahuan Kritikal (DPT/DPL)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-shield-halved text-primary"></i> 4 Aturan Bukti Berkualitas (VATM)</h3>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Prinsip</th>
+                  <th>Deskripsi Kepatuhan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color: var(--primary);">Valid (V)</strong></td>
+                  <td>Bukti secara langsung mencerminkan elemen kompetensi, KUK, dan batasan variabel yang relevan.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--primary);">Asli (A)</strong></td>
+                  <td>Dapat dibuktikan secara sah bahwa bukti tersebut adalah hasil karya otentik asesi sendiri.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--primary);">Terkini (T)</strong></td>
+                  <td>Mencerminkan kompetensi yang masih aktif diterapkan saat ini (tidak kedaluwarsa).</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--primary);">Memadai (M)</strong></td>
+                  <td>Jumlah dan kedalaman bukti cukup untuk membuat keputusan kompeten tanpa keraguan.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-cubes text-primary"></i> 5 Dimensi Kompetensi Kerja</h3>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Dimensi</th>
+                  <th>Fokus Uji</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Task Skills (TS)</strong></td>
+                  <td>Kemampuan melaksanakan tugas-tugas individu sesuai standar operasional.</td>
+                </tr>
+                <tr>
+                  <td><strong>Task Management Skills (TMS)</strong></td>
+                  <td>Kemampuan mengelola beberapa tugas berbeda dalam satu alur pekerjaan.</td>
+                </tr>
+                <tr>
+                  <td><strong>Contingency Management Skills (CMS)</strong></td>
+                  <td>Kemampuan merespons ketidaksesuaian, kendala, atau situasi darurat.</td>
+                </tr>
+                <tr>
+                  <td><strong>Job Role/Environment Skills (JRES)</strong></td>
+                  <td>Kemampuan memenuhi tanggung jawab lingkungan kerja, K3L, dan etika.</td>
+                </tr>
+                <tr>
+                  <td><strong>Transfer Skills (TRS)</strong></td>
+                  <td>Kemampuan mentransfer kecakapan ke situasi, alat, atau konteks baru.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 2: FR.MAPA.01 PERENCANAAN (EDITABLE)
+           ======================================================== -->
+      <section id="tab-mapa01" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-file-pen text-primary"></i> FR.MAPA.01 - MERENCANAKAN AKTIVITAS DAN PROSES ASESMEN</h3>
+            <span class="badge badge-success"><i class="fa-solid fa-pen-to-square"></i> Klik Teks Untuk Mengedit Manual</span>
+          </div>
+
+          <!-- Header Skema Sertifikasi -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <tbody>
+                <tr>
+                  <td rowspan="2" style="width: 25%; font-weight: 700; background: #f8fafc;">Skema Sertifikasi (KKNI/Okupasi/Klaster)</td>
+                  <td style="width: 15%; font-weight: 700;">Judul</td>
+                  <td style="width: 2%;">:</td>
+                  <td contenteditable="true"><strong>Staf (Administrasi) Sumber Daya Manusia</strong></td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Nomor</td>
+                  <td>:</td>
+                  <td contenteditable="true"><strong>SS.LSP-MSDMPRO.01.001</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 1. Menentukan Pendekatan Asesmen -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="3" class="form-table-header">1. Menentukan Pendekatan Asesmen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 5%; font-weight: 700;">1.1</td>
+                  <td style="width: 25%; font-weight: 700;">Asesi</td>
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                      <label><input type="checkbox" checked /> Hasil pelatihan dan / atau pendidikan, dimana Kurikulum dan fasilitas praktek mampu telusur terhadap standar kompetensi</label>
+                      <label><input type="checkbox" /> Hasil pelatihan dan / atau pendidikan, dimana kurikulum belum berbasis kompetensi.</label>
+                      <label><input type="checkbox" /> Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya mampu telusur dengan standar kompetensi</label>
+                      <label><input type="checkbox" /> Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya belum berbasis kompetensi.</label>
+                      <label><input type="checkbox" /> Pelatihan / belajar mandiri atau otodidak.</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="font-weight: 700;">Tujuan Asesmen</td>
+                  <td>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                      <label><input type="checkbox" checked /> Sertifikasi</label>
+                      <label><input type="checkbox" /> Sertifikasi Ulang / RCC</label>
+                      <label><input type="checkbox" /> Pengakuan Kompetensi Terkini (PKT)</label>
+                      <label><input type="checkbox" /> Rekognisi Pembelajaran Lampau (RPL)</label>
+                      <label><input type="checkbox" /> Lainnya</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="font-weight: 700;">Konteks Asesmen:</td>
+                  <td>
+                    <table class="data-table" style="margin: 0;">
+                      <tr>
+                        <td style="width: 30%; font-weight: 600;">Lingkungan</td>
+                        <td>
+                          <label style="margin-right: 1.5rem;"><input type="checkbox" checked /> Tempat kerja nyata</label>
+                          <label><input type="checkbox" checked /> Tempat kerja simulasi</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: 600;">Peluang untuk mengumpulkan bukti dalam sejumlah situasi</td>
+                        <td>
+                          <label style="margin-right: 1.5rem;"><input type="checkbox" checked /> Tersedia</label>
+                          <label><input type="checkbox" /> Terbatas</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: 600;">Hubungan antara standar kompetensi dan:</td>
+                        <td>
+                          <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                            <label><input type="checkbox" checked /> Bukti untuk mendukung asesmen : &#9786; (Tersedia Lengkap)</label>
+                            <label><input type="checkbox" checked /> Aktivitas kerja di tempat kerja Asesi: &#9786; (Relevan)</label>
+                            <label><input type="checkbox" checked /> Kegiatan Pembelajaran: &#9786; (Tertelusur)</label>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: 600;">Siapa yang melakukan asesmen / RPL</td>
+                        <td>
+                          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                            <label><input type="checkbox" checked /> Lembaga Sertifikasi (LSP)</label>
+                            <label><input type="checkbox" /> Organisasi Pelatihan (LDP/Vokasi)</label>
+                            <label><input type="checkbox" /> Asesor Perusahaan</label>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="font-weight: 700;">Konfirmasi dengan orang yang relevan</td>
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                      <label><input type="checkbox" checked /> Manajer sertifikasi LSP</label>
+                      <label><input type="checkbox" checked /> Master Asesor / Master Trainer / Lead Asesor Kompetensi</label>
+                      <label><input type="checkbox" /> Manajer Pelatihan Lembaga Training terakreditasi / Lembaga Training terdaftar</label>
+                      <label><input type="checkbox" /> Manajer atau supervisor di tempat kerja</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">1.2</td>
+                  <td style="font-weight: 700;">Standar industri atau tempat kerja</td>
+                  <td contenteditable="true">
+                    <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                      <label><input type="checkbox" checked /> <strong>Standar Kompetensi:</strong> SKKNI Nomor 149 Tahun 2020 (Kategori MSDM)</label>
+                      <label><input type="checkbox" checked /> <strong>Kriteria asesmen dari kurikulum pelatihan:</strong> Modul M.74SPS03.088.2</label>
+                      <label><input type="checkbox" checked /> <strong>Spesifikasi kinerja suatu perusahaan atau industri:</strong> SOP Staf Administrasi SDM</label>
+                      <label><input type="checkbox" /> <strong>Spesifikasi Produk:</strong> Standar Nasional Indonesia (SNI)</label>
+                      <label><input type="checkbox" checked /> <strong>Pedoman khusus:</strong> Pedoman BNSP 201/202/MUK 2023</label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2. Mempersiapkan Rencana Asesmen -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="12" class="form-table-header">2. Mempersiapkan Rencana Asesmen</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th rowspan="5" style="width: 15%;" contenteditable="true">Kelompok Pekerjaan 1</th>
+                  <th style="width: 5%;">No.</th>
+                  <th style="width: 25%;">Kode Unit</th>
+                  <th colspan="9">Judul Unit</th>
+                </tr>
+                <tr>
+                  <td>1.</td>
+                  <td contenteditable="true"><strong>M.70SDM01.059.2</strong></td>
+                  <td colspan="9" contenteditable="true">Melaksanakan Administrasi Penerapan Kebijakan MSDM</td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td contenteditable="true"><strong>M.70SDM01.044.2</strong></td>
+                  <td colspan="9" contenteditable="true">Membangun Komunikasi Organisasi yang Efektif</td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td contenteditable="true"><strong>M.70SDM01.010.2</strong></td>
+                  <td colspan="9" contenteditable="true">Menyusun Uraian Jabatan</td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td contenteditable="true"><strong>M.70SDM01.013.2</strong></td>
+                  <td colspan="9" contenteditable="true">Menyusun Standar Operasional Prosedur (SOP) MSDM</td>
+                </tr>
+                <tr style="background: #e2e8f0; color: var(--primary); font-weight: 700; text-align: center;">
+                  <th rowspan="2" style="width: 20%;">Unit Kompetensi</th>
+                  <th rowspan="2" colspan="2" style="width: 25%;">Bukti-Bukti (Kinerja, Produk, Portofolio, dan/atau Pengetahuan)</th>
+                  <th colspan="3" style="width: 12%;">Jenis Bukti</th>
+                  <th colspan="6">Metode dan Perangkat Asesmen</th>
+                </tr>
+                <tr style="background: #f1f5f9; font-size: 0.78rem; text-align: center;">
+                  <th>L</th><th>TL</th><th>T</th>
+                  <th>CL (IA.01)</th><th>DIT (IA.04)</th><th>DPT/DPL</th><th>CVP (IA.08)</th><th>PW (IA.09)</th><th>VPK (IA.10)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td contenteditable="true"><strong>1. Melaksanakan Administrasi Penerapan Kebijakan MSDM</strong></td>
+                  <td colspan="2" contenteditable="true">Hasil observasi langsung dan hasil tanya jawab tentang Melaksanakan Administrasi Penerapan Kebijakan MSDM</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">CL</span></td>
+                  <td align="center">-</td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>2. Membangun Komunikasi Organisasi yang Efektif</strong></td>
+                  <td colspan="2" contenteditable="true">Hasil observasi langsung dan hasil tanya jawab tentang Membangun Komunikasi Organisasi yang Efektif</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">CL</span></td>
+                  <td align="center">-</td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>3. Menyusun Uraian Jabatan</strong></td>
+                  <td colspan="2" contenteditable="true">Hasil observasi langsung dan hasil tanya jawab tentang Menyusun Uraian Jabatan</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">CL</span></td>
+                  <td align="center">-</td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>4. Menyusun Standar Operasional Prosedur (SOP) MSDM</strong></td>
+                  <td colspan="2" contenteditable="true">Hasil observasi langsung dan hasil tanya jawab tentang Menyusun Standar Operasional Prosedur (SOP) MSDM</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">CL</span></td>
+                  <td align="center">-</td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: -1rem; margin-bottom: 1.5rem; font-style: italic;">
+            *Catatan: Metode tanya jawab memungkinkan kombinasi DPT (Tertulis) atau DPL (Lisan) dalam satu kelompok pekerjaan, disesuaikan dengan konteks pekerjaan dan/atau karakteristik asesi.
+          </p>
+
+          <!-- 3. Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="2" class="form-table-header">3. Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 45%; font-weight: 700;">3.1. a. Karakteristik Kandidat:</td>
+                  <td contenteditable="true"><strong>Tidak ada</strong> karakteristik khusus Kandidat. (Asesi memenuhi prasyarat umum).</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">b. Kebutuhan kontekstualisasi terkait tempat kerja:</td>
+                  <td contenteditable="true"><strong>Ada:</strong> Kontekstualisasi format SOP dan bagan organisasi disesuaikan dengan sistem administrasi MSDM industri tempat kerja asesi.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">3.2. Saran yang diberikan oleh paket pelatihan atau pengembang pelatihan:</td>
+                  <td contenteditable="true"><strong>Ada:</strong> Penambahan alokasi waktu observasi demonstrasi untuk unit penyusunan uraian jabatan bila menggunakan sistem komputerisasi.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">3.3. Penyesuaian perangkat asesmen terkait kebutuhan kontekstualisasi:</td>
+                  <td contenteditable="true"><strong>Ada:</strong> Menggunakan formulir instrumen FR.IA.02 dengan studi kasus riil yang terjadi di departemen SDM perusahaan asesi.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">3.4. Peluang untuk kegiatan asesmen terintegrasi dan mencatat setiap perubahan yang diperlukan untuk alat asesmen:</td>
+                  <td contenteditable="true"><strong>Ada:</strong> Integrasi 4 unit kompetensi pada Kelompok Pekerjaan 1 disatukan dalam 1 Skenario Tugas Praktik Demonstrasi terpadu (FR.IA.02).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Persetujuan & Tim Penyusun/Validator -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="3" class="form-table-header">Persetujuan Rencana Asesmen</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th style="width: 45%;">Orang yang relevan</th>
+                  <th style="width: 30%;">Nama</th>
+                  <th style="width: 25%;">Tandatangan dan Tanggal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" checked /> <strong>Manajer sertifikasi LSP</strong></td>
+                  <td contenteditable="true">Jhody S., M.M.</td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-15)</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" checked /> <strong>Master Asesor / Master Trainer / Lead Asesor Kompetensi</strong></td>
+                  <td contenteditable="true"><strong>Iman N Bajuasijadji</strong></td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-15)</span></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /> Manajer pelatihan Lembaga Training terakreditasi</td>
+                  <td contenteditable="true">-</td>
+                  <td contenteditable="true">-</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /> Manajer atau supervisor di tempat kerja</td>
+                  <td contenteditable="true">-</td>
+                  <td contenteditable="true">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="5" class="form-table-header">PENYUSUN DAN VALIDATOR</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th>STATUS</th>
+                  <th>NO</th>
+                  <th>NAMA</th>
+                  <th>NOMOR MET</th>
+                  <th>TANDA TANGAN DAN TANGGAL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2" style="font-weight: 700; vertical-align: middle;">PENYUSUN</td>
+                  <td>1</td>
+                  <td contenteditable="true"><strong>Iman N Bajuasijadji</strong></td>
+                  <td contenteditable="true"><strong>MET 000.004316.2015</strong></td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-15)</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td contenteditable="true">Buyung, S.Psi.</td>
+                  <td contenteditable="true">MET 000.011245.2005</td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-15)</span></td>
+                </tr>
+                <tr>
+                  <td rowspan="2" style="font-weight: 700; vertical-align: middle;">VALIDATOR</td>
+                  <td>1</td>
+                  <td contenteditable="true">Putri Gadis W., M.Psi.</td>
+                  <td contenteditable="true">MET 000.011892.2006</td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-16)</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td contenteditable="true">Bujang, S.E., M.M.</td>
+                  <td contenteditable="true">MET 000.012331.2006</td>
+                  <td contenteditable="true"><span class="badge badge-success">&#10004; TTD (2023-11-16)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 3: OBSERVASI LANGSUNG (EDITABLE)
+           ======================================================== -->
+      <section id="tab-observasi" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-eye text-primary"></i> METODE OBSERVASI LANGSUNG (DEMONSTRASI & PRAKTIK)</h3>
+            <span class="badge badge-success"><i class="fa-solid fa-pen-to-square"></i> Klik Teks Untuk Mengedit Manual</span>
+          </div>
+          
+          <div class="form-guidelines-box">
+            <h5><i class="fa-solid fa-circle-info"></i> Definisi & Flowchart Perencanaan Asesmen Observasi Langsung:</h5>
+            <p style="font-size: 0.88rem; color: var(--text-dark); margin-bottom: 0.5rem;">
+              Observasi adalah metode asesmen berbasis kompetensi yang mempersyaratkan asesi untuk mendemonstrasikan apa yang mereka ketahui dan yang dapat mereka lakukan secara langsung di tempat kerja nyata atau simulasi yang terstandar.
+            </p>
+            <ul>
+              <li><strong>Langkah 1:</strong> Siapkan Dokumen Peta Kelompok Pekerjaan dan Form MAPA 01, FR.IA.01, FR.IA.02, FR.IA.03, dan FR.IA.05/06/07.</li>
+              <li><strong>Langkah 2:</strong> Isi Form MAPA 01 berbasis skema/kelompok pekerjaan dengan metode observasi (Ceklis CL & DPT/DPL).</li>
+              <li><strong>Langkah 3:</strong> Buat <strong>FR.IA.01 (CL)</strong> dengan menyalin Elemen dan KUK per Unit Kompetensi serta tentukan Standar Industri/SOP.</li>
+              <li><strong>Langkah 4:</strong> Buat <strong>FR.IA.02 (TPD)</strong> berupa Skenario Tugas Praktik Demonstrasi terintegrasi menggunakan pendekatan <strong>STAR</strong>.</li>
+              <li><strong>Langkah 5:</strong> Buat <strong>FR.IA.03 (PMO)</strong> berupa daftar pertanyaan penguat yang berkaitan dengan <strong>5 Dimensi Kompetensi</strong>, batasan variabel, dan aspek kritis.</li>
+            </ul>
+          </div>
+
+          <!-- 1. FR.IA.01.CL -->
+          <h4 style="color: var(--primary); margin: 1.5rem 0 0.75rem 0;">
+            <i class="fa-solid fa-list-check"></i> Contoh FR.IA.01. CL - CEKLIS OBSERVASI AKTIVITAS DI TEMPAT KERJA / SIMULASI
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <tbody>
+                <tr>
+                  <td style="width: 25%; font-weight: 700; background: #f8fafc;">Skema Sertifikasi</td>
+                  <td style="width: 15%; font-weight: 700;">Judul / Nomor</td>
+                  <td contenteditable="true"><strong>Staf (Administrasi) Sumber Daya Manusia / SS.LSP-MSDMPRO.01.001</strong></td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700; background: #f8fafc;">TUK / Tanggal</td>
+                  <td style="font-weight: 700;">Tempat / Waktu</td>
+                  <td contenteditable="true">Sewaktu / Tempat Kerja / Mandiri | Durasi Praktik: 15 Menit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-subheader">
+                  <th colspan="2" style="width: 20%;" contenteditable="true">Unit Kompetensi 2</th>
+                  <th style="width: 20%;" contenteditable="true">Kode Unit : M.70SDM01.044.2</th>
+                  <th colspan="3" contenteditable="true">Judul Unit : Membangun Komunikasi Organisasi yang Efektif</th>
+                </tr>
+                <tr style="background: #e2e8f0; font-size: 0.85rem;">
+                  <th style="width: 5%;">No.</th>
+                  <th style="width: 25%;">Elemen</th>
+                  <th style="width: 35%;">Kriteria Unjuk Kerja (KUK)</th>
+                  <th style="width: 20%;">Standar Industri / Tempat Kerja</th>
+                  <th style="width: 10%; text-align: center;">Pencapaian (Ya/Tdk)</th>
+                  <th style="width: 10%;">Penilaian Lanjut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2" align="center">1</td>
+                  <td rowspan="2" contenteditable="true"><strong>Menentukan konten dan media komunikasi efektif</strong></td>
+                  <td contenteditable="true">1.1. Konten dan media komunikasi yang sesuai diidentifikasi berdasarkan kebutuhan organisasi.</td>
+                  <td rowspan="4" style="vertical-align: middle; background: #fafafa;" contenteditable="true">
+                    <strong>SOP Staf (Administrasi) Sumber Daya Manusia</strong><br/>
+                    <small>Pedoman Komunikasi Internal PT ABC No. SOP-HRD-004</small>
+                  </td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                  <td contenteditable="true">-</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true">1.2. Konten dan media komunikasi ditentukan sesuai dengan tujuan komunikasi.</td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                  <td contenteditable="true">-</td>
+                </tr>
+                <tr>
+                  <td rowspan="2" align="center">2</td>
+                  <td rowspan="2" contenteditable="true"><strong>Melakukan komunikasi peraturan dan kebijakan organisasi</strong></td>
+                  <td contenteditable="true">2.1. Target komunikasi ditentukan sesuai dengan tuntutan komunikasi.</td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                  <td contenteditable="true">-</td>
+                </tr>
+                <tr>
+                  <td contenteditable="true">2.2. Komunikasi dilakukan sesuai dengan standar operasional prosedur yang berlaku.</td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                  <td contenteditable="true">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2. FR.IA.02.TPD -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-file-lines"></i> Contoh Lengkap FR.IA.02. TPD - TUGAS PRAKTIK DEMONSTRASI
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="2" class="form-table-header">FR.IA.02. TPD - TUGAS PRAKTIK DEMONSTRASI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" contenteditable="true">
+                    <strong>A. Petunjuk Praktik:</strong>
+                    <ol style="padding-left: 1.5rem; margin-top: 0.35rem; font-size: 0.85rem;">
+                      <li>Baca dan pelajari setiap instruksi kerja di bawah ini dengan cermat sebelum melaksanakan praktik demonstrasi.</li>
+                      <li>Klarifikasi kepada asesor kompetensi apabila ada hal-hal yang belum jelas.</li>
+                      <li>Laksanakan pekerjaan sesuai dengan urutan proses yang sudah ditetapkan.</li>
+                      <li>Seluruh proses kerja mengacu kepada SOP/WI yang dipersyaratkan.</li>
+                    </ol>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <strong>B. Skenario Tugas Praktik Demonstrasi (Pendekatan STAR):</strong>
+                    <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 1rem; border-radius: 6px; margin-top: 0.5rem; font-size: 0.88rem; line-height: 1.6;" contenteditable="true">
+                      Dalam mencapai jabatan sebagai seorang <strong>Staf (Administrasi) Sumber Daya Manusia</strong>, Anda diminta untuk <strong>Melakukan Administrasi Penerapan Kebijakan MSDM</strong>, dalam pelaksanaan pekerjaan tersebut Anda harus <strong>Membangun Komunikasi Organisasi yang Efektif</strong>, selain itu Anda harus <strong>Menyusun Uraian Jabatan</strong> dan <strong>Menyusun Standar Operasional Prosedur (SOP) MSDM</strong>.
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50%;" contenteditable="true">
+                    <strong>Perlengkapan dan Peralatan:</strong>
+                    <div style="font-size: 0.85rem; margin-top: 0.4rem;">
+                      <strong>a. Peralatan:</strong>
+                      <ul style="padding-left: 1.25rem;">
+                        <li>1. Komputer / Laptop</li>
+                        <li>2. Printer & Alat cetak</li>
+                        <li>3. Jaringan Internet</li>
+                        <li>4. ATK (Alat Tulis Kantor)</li>
+                        <li>5. Alat pengolah data dan angka (Spreadsheet)</li>
+                      </ul>
+                      <strong style="display:block; margin-top:0.4rem;">b. Perlengkapan Dokumen:</strong>
+                      <ul style="padding-left: 1.25rem;">
+                        <li>1. Alat Tulis Menulis & Alat Komunikasi</li>
+                        <li>2. Dokumen model organisasi, bagan struktur organisasi & tupoksi jabatan</li>
+                        <li>3. Dokumen hasil wawancara pemangku jabatan terkait</li>
+                        <li>4. Dokumen standar uraian jabatan (Job Description)</li>
+                        <li>5. Dokumen proses bisnis organisasi & draft SOP MSDM</li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td contenteditable="true">
+                    <strong>Waktu & Ketentuan Pelaksanaan:</strong>
+                    <div style="font-size: 0.85rem; margin-top: 0.4rem;">
+                      <p><strong>Durasi Waktu:</strong> 15 menit dengan memperhatikan aspek K3 dan kepatuhan SOP.</p>
+                      <p style="margin-top: 0.5rem;"><strong>Hasil Akhir (Output):</strong></p>
+                      <div style="background: #eef4ff; border-left: 4px solid var(--primary); padding: 0.5rem 0.75rem; border-radius: 0 4px 4px 0; margin-top: 0.25rem;">
+                        <strong>Membuat Dokumen Uraian Jabatan, SOP Perusahaan, dan Notula/Bukti Komunikasi Kebijakan Perusahaan.</strong>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 3. FR.IA.03.PMO -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-circle-question"></i> Contoh Lengkap FR.IA.03. PMO - PERTANYAAN UNTUK MENDUKUNG OBSERVASI
+          </h4>
+          <div class="form-guidelines-box">
+            <h5><i class="fa-solid fa-lightbulb"></i> Panduan Bagi Asesor (FR.IA.03):</h5>
+            <ul>
+              <li>Formulir ini diisi oleh asesor kompetensi sebelum, pada saat, atau setelah melakukan asesmen dengan metode observasi.</li>
+              <li>Pertanyaan dibuat dengan tujuan menggali <strong>5 Dimensi Kompetensi</strong>, batasan variabel, dan aspek kritis:
+                <br/>- <strong>Contingency Management Skills (CMS)</strong>: <em>"Apa yang akan Anda lakukan jika...?"</em>
+                <br/>- <strong>Job Role Environment Skills (JRES)</strong>: <em>"Bagaimana prosedurnya dan kebijakan untuk...?"</em>
+                <br/>- <strong>Transfer Skills (TRS)</strong>: <em>"Bagaimana Anda menyesuaikan proses ini pada situasi/alat baru...?"</em>
+              </li>
+              <li>Catat tanggapan asesi dan berikan penilaian pencapaian (Ya / Tidak).</li>
+            </ul>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-subheader">
+                  <th style="width: 5%;">No.</th>
+                  <th style="width: 60%;">Daftar Pertanyaan Pendukung Observasi (PMO)</th>
+                  <th style="width: 15%; text-align: center;">Dimensi Target</th>
+                  <th style="width: 20%; text-align: center;">Pencapaian</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center"><strong>1</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Bagaimana cara menerapkan kebijakan MSDM secara akurat dan tepat waktu sesuai prosedur yang berlaku di organisasi tersebut?
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Tanggapan Asesi:</strong> Melakukan sosialisasi berkala, menyusun jadwal implementasi terpadu, dan melakukan checklist monitoring kepatuhan administrasi.
+                    </div>
+                  </td>
+                  <td align="center" contenteditable="true"><span class="badge badge-warning">TRS (Transfer)</span></td>
+                  <td align="center"><label><input type="radio" name="pmo_r1" checked /> Ya</label> &nbsp; <label><input type="radio" name="pmo_r1" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>2</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Bagaimana cara menentukan konten dan media komunikasi yang efektif sesuai dengan perkembangan teknologi saat ini?
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Tanggapan Asesi:</strong> Menyesuaikan media dengan profil audiens internal, seperti portal intranet, email resmi, dan grup komunikasi daring instan.
+                    </div>
+                  </td>
+                  <td align="center" contenteditable="true"><span class="badge badge-warning">TRS (Transfer)</span></td>
+                  <td align="center"><label><input type="radio" name="pmo_r2" checked /> Ya</label> &nbsp; <label><input type="radio" name="pmo_r2" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>3</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Dalam melaksanakan komunikasi di dalam organisasi, apa yang Anda dapat lakukan untuk menentukan target komunikasi sesuai dengan harapan organisasi tersebut?
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Tanggapan Asesi:</strong> Mengelompokkan audiens berdasarkan level jabatan dan urgensi pesan guna memastikan pesan diterima tanpa distorsi.
+                    </div>
+                  </td>
+                  <td align="center" contenteditable="true"><span class="badge badge-primary">JRES (Environment)</span></td>
+                  <td align="center"><label><input type="radio" name="pmo_r3" checked /> Ya</label> &nbsp; <label><input type="radio" name="pmo_r3" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>4</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Apa yang Anda lakukan pada saat melakukan analisis jabatan, akan tetapi saat pengimplementasiannya tidak sesuai dengan kebijakan yang ada di organisasi tersebut?
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Tanggapan Asesi:</strong> Menghentikan sementara proses, mencatat deviasi, mengonfirmasi kembali ke pimpinan departemen dan menyesuaikan draf dengan regulasi korporat.
+                    </div>
+                  </td>
+                  <td align="center" contenteditable="true"><span class="badge badge-danger">CMS (Contingency)</span></td>
+                  <td align="center"><label><input type="radio" name="pmo_r4" checked /> Ya</label> &nbsp; <label><input type="radio" name="pmo_r4" /> Tdk</label></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 4: KEGIATAN TERSTRUKTUR (EDITABLE)
+           ======================================================== -->
+      <section id="tab-terstruktur" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-diagram-project text-primary"></i> METODE KEGIATAN TERSTRUKTUR (SKEMA LEVEL IV KE ATAS)</h3>
+            <span class="badge badge-success"><i class="fa-solid fa-pen-to-square"></i> Klik Teks Untuk Mengedit Manual</span>
+          </div>
+
+          <div class="form-guidelines-box">
+            <h5><i class="fa-solid fa-brain"></i> Konsep Utama Metode Kegiatan Terstruktur:</h5>
+            <p style="font-size: 0.88rem; color: var(--text-dark); margin-bottom: 0.5rem;">
+              Metode ini diperuntukkan bagi uji kompetensi pada skema kualifikasi **Level 4 ke atas** yang didominasi kemampuan berpikir kompleks (*skill thinking* / kerja otak), studi kasus perbankan/pengadaan, presentasi manajerial, dan perancangan strategi bisnis.
+            </p>
+            <ul>
+              <li><strong>Alur Perencanaan:</strong> Siapkan Peta Kelompok Pekerjaan & Form MAPA 01, FR.IA.04A, FR.IA.04B, dan FR.IA.05/06/07.</li>
+              <li><strong>FR.IA.04A (DIT):</strong> Buat skenario narasi kegiatan terstruktur menggunakan pendekatan <strong>STAR (Situation, Task, Action, Result)</strong>.</li>
+              <li><strong>FR.IA.04B:</strong> Salin fokus presentasi pada FR.IA.04A ke kolom Lingkup Penyajian Proyek, lalu susun daftar pertanyaan prediksi berbasis 5 dimensi kompetensi.</li>
+            </ul>
+          </div>
+
+          <!-- MAPA 01 Kegiatan Terstruktur -->
+          <h4 style="color: var(--primary); margin: 1.5rem 0 0.75rem 0;">
+            <i class="fa-solid fa-table-list"></i> Contoh MAPA 01 untuk Metode Kegiatan Terstruktur
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-subheader">
+                  <th colspan="3" contenteditable="true">Skema: Kualifikasi 6 Bidang Manajemen Risiko Perbankan (K.64MRP01)</th>
+                  <th colspan="3" style="text-align: center;">Jenis Bukti</th>
+                  <th colspan="2" style="text-align: center;">Metode & Perangkat</th>
+                </tr>
+                <tr style="background: #f8fafc; font-size: 0.8rem;">
+                  <th>No</th>
+                  <th>Kode Unit</th>
+                  <th>Judul Unit Kompetensi</th>
+                  <th>L</th><th>TL</th><th>T</th>
+                  <th>DIT (IA.04A)</th><th>DPT (IA.05/06)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td contenteditable="true"><strong>K.64MRP00.001.1</strong></td>
+                  <td contenteditable="true">Menganalisis Risk Coverage Berdasarkan Visi, Misi dan Strategi Bisnis Bank</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">DIT</span></td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td contenteditable="true"><strong>K.64MRP00.003.1</strong></td>
+                  <td contenteditable="true">Menyusun Struktur, Tanggung Jawab, dan Tata Cara Pengelolaan Risiko Bank (Risk Governance)</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">DIT</span></td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td contenteditable="true"><strong>K.64MRP00.020.1</strong></td>
+                  <td contenteditable="true">Mereviu Kerangka Manajemen Risiko (Independent Risk Review)</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><span class="badge badge-primary">DIT</span></td>
+                  <td align="center"><span class="badge badge-warning">DPT</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FR.IA.04A. DIT -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-file-powerpoint"></i> Contoh Lengkap FR.IA.04A. DIT - DAFTAR INSTRUKSI TERSTRUKTUR
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th colspan="2" class="form-table-header">FR.IA.04A. DIT – DAFTAR INSTRUKSI TERSTRUKTUR (PROYEK SINGKAT / STUDI KASUS)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 25%; font-weight: 700; background: #f8fafc;">Skema Sertifikasi</td>
+                  <td contenteditable="true"><strong>KUALIFIKASI 6 BIDANG MANAJEMEN RISIKO PERBANKAN (K.64MRP01)</strong></td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700; background: #f8fafc;">Hal yang harus disiapkan / Skenario Proyek</td>
+                  <td contenteditable="true">
+                    <div style="font-size: 0.88rem; line-height: 1.6;">
+                      <p><strong><span style="color: var(--accent);">[S] Situasi:</span></strong> Dalam rangka mencapai Kualifikasi 6 Bidang Manajemen Risiko Perbankan, dengan persyaratan memiliki sertifikat kompetensi Kualifikasi 5 yang masih berlaku dan sertifikat pelatihan berbasis kompetensi Kualifikasi 6 Bidang Manajemen Risiko Perbankan.</p>
+                      
+                      <p style="margin-top: 0.4rem;"><strong><span style="color: var(--accent-warm);">[T] Tugas:</span></strong> Anda diminta membuat presentasi dalam bentuk Studi Kasus terkait kasus pekerjaan Anda sebagai <strong>Komisaris Bank</strong> pada Kualifikasi 6 Manajemen Risiko Perbankan.</p>
+                      
+                      <p style="margin-top: 0.4rem;"><strong><span style="color: var(--primary-light);">[A] Aksi:</span></strong> Sebagai tindak lanjut untuk melakukan pekerjaan tersebut, kepada Anda diberikan informasi dan acuan dalam membuat karya tulis berupa:
+                        <br/>&bull; Visi, Misi dan Strategi Bisnis Bank
+                        <br/>&bull; Kerangka Manajemen Risiko & Strategi Bisnis dan Strategi Risiko Bank
+                        <br/>&bull; Peraturan yang terkait dengan Perbankan dan OJK serta Norma Standar yang terkait
+                        <br/><em>Lingkup bahasan studi kasus meliputi:</em>
+                        <br/>1. Menganalisis Risk Coverage Berdasarkan Visi, Misi dan Strategi Bisnis Bank
+                        <br/>2. Menyusun Struktur, Tanggung Jawab, dan Tata Cara Pengelolaan Risiko Bank (Risk Governance)
+                        <br/>3. Mereviu Kerangka Manajemen Risiko (Independent Risk Review)
+                      </p>
+                      
+                      <p style="margin-top: 0.4rem;"><strong><span style="color: var(--success);">[R] Hasil:</span></strong> Karya tulis Studi Kasus ini dipresentasikan di depan tim Asesor yang ditugaskan oleh LSP.
+                        <br/>&bull; Peralatan: Laptop, LCD, dan Layar
+                        <br/>&bull; Bahan: Bahan paparan Power Point (PPT) <strong>maksimal 5 halaman</strong>.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700; background: #f8fafc;">Ketentuan Demonstrasi Presentasi</td>
+                  <td contenteditable="true">
+                    <ol style="padding-left: 1.25rem; font-size: 0.85rem;">
+                      <li>Presentasikanlah pekerjaan Saudara berupa studi kasus di hadapan tim asesor.</li>
+                      <li><strong>Alokasi Waktu Presentasi:</strong> Terbagi atas 2 bagian, yaitu <strong>Penyajian (15 menit)</strong> diikuti dengan <strong>Tanya Jawab (15 menit)</strong>. Total waktu bagi seorang peserta uji adalah <strong>30 menit</strong>.</li>
+                      <li>Jawablah pertanyaan-pertanyaan yang diajukan oleh tim asesmen yang meliputi:
+                        <br/>a. Ketepatan dan kecepatan jawaban
+                        <br/>b. Penguasaan kasus
+                        <br/>c. Rasionalitas penyelesaian kasus
+                      </li>
+                    </ol>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FR.IA.04B. Penilaian -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-square-poll-vertical"></i> Contoh Lengkap FR.IA.04B. PENILAIAN KEGIATAN TERSTRUKTUR
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-header">
+                  <th colspan="4">FR.IA.04B. PENILAIAN PROYEK SINGKAT ATAU KEGIATAN TERSTRUKTUR LAINNYA</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th style="width: 25%;">Lingkup Penyajian Proyek / Kasus</th>
+                  <th style="width: 45%;">Daftar Pertanyaan (Fokus Aspek Kritis 5 Dimensi)</th>
+                  <th style="width: 20%;">Kesesuaian Standar Kerja (Unit/Elemen/KUK)</th>
+                  <th style="width: 10%; text-align: center;">Pencapaian (Ya/Tdk)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td contenteditable="true"><strong>1. Analisis Risk Coverage Berdasarkan Visi, Misi dan Strategi Bisnis Bank</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Bagaimana Anda menganalisis dan merumuskan toleransi risiko (*risk appetite*) apabila terjadi perubahan signifikan pada strategi penyaluran kredit perbankan?<br/>
+                    <strong>Tanggapan:</strong> Melakukan stress-testing makroekonomi dan menyesuaikan limit risiko portofolio kredit per sektor.
+                  </td>
+                  <td contenteditable="true">Unit K.64MRP00.001.1<br/><small>Elemen 1 & 2</small></td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>2. Penyusunan Struktur, Tanggung Jawab, dan Tata Cara Pengelolaan Risiko (Risk Governance)</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Bagaimana pembagian peran independen antara *Three Lines of Defense* (Komite Risiko, Manajemen Risiko, dan Audit Internal) agar terhindar dari konflik kepentingan?<br/>
+                    <strong>Tanggapan:</strong> Memastikan jalur pelaporan Direktur Kepatuhan dan Audit Internal langsung ke Dewan Komisaris.
+                  </td>
+                  <td contenteditable="true">Unit K.64MRP00.003.1<br/><small>Elemen 1, 2, 3</small></td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>3. Reviu Kerangka Manajemen Risiko (Independent Risk Review)</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> Apa tindakan korektif yang Anda putuskan jika hasil reviu independen menunjukkan model mitigasi risiko pasar tidak lagi akurat terhadap suku bunga global?<br/>
+                    <strong>Tanggapan:</strong> Memerintahkan re-kalibrasi model kuantitatif dan mewajibkan revisi SOP mitigasi likuiditas bank.
+                  </td>
+                  <td contenteditable="true">Unit K.64MRP00.020.1<br/><small>Elemen 1 & 2</small></td>
+                  <td align="center"><label><input type="checkbox" checked /> Ya</label></td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td colspan="2" contenteditable="true">
+                    <strong>Rekomendasi Asesor:</strong> Asesi telah memenuhi seluruh kriteria unjuk kerja, direkomendasikan:
+                    <br/><label><input type="radio" name="rek_terstruktur" checked /> <strong>KOMPETEN (K)</strong></label> &nbsp; &nbsp; <label><input type="radio" name="rek_terstruktur" /> <strong>BELUM KOMPETEN (BK)</strong></label>
+                  </td>
+                  <td colspan="2" contenteditable="true">
+                    <strong>Penyusun:</strong> Buyung (MET 000.011245)<br/>
+                    <strong>Validator:</strong> Gadis (MET 000.011892)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 5: VERIFIKASI PORTOFOLIO (EDITABLE)
+           ======================================================== -->
+      <section id="tab-portofolio" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-folder-open text-primary"></i> METODE VERIFIKASI PORTOFOLIO & WAWANCARA</h3>
+            <span class="badge badge-success"><i class="fa-solid fa-pen-to-square"></i> Klik Teks Untuk Mengedit Manual</span>
+          </div>
+
+          <div class="form-guidelines-box">
+            <h5><i class="fa-solid fa-lightbulb"></i> Prinsip Dasar Verifikasi Portofolio & Wawancara:</h5>
+            <p style="font-size: 0.88rem; color: var(--text-dark); margin-bottom: 0.5rem;">
+              Portofolio adalah kumpulan bahan hasil kerja nyata asesi yang disusun dalam kurun waktu tertentu untuk membuktikan kompetensi.
+            </p>
+            <ul>
+              <li><strong>Konsep 1 Paket Bukti:</strong> Satu dokumen portofolio komprehensif (misal: Summary Report & SPT) dapat membuktikan banyak KUK pada beberapa unit kompetensi sekaligus.</li>
+              <li><strong>Tujuan Wawancara (FR.IA.09):</strong> Mengklarifikasi fenomena, metodologi, atau justifikasi teknis yang tidak dapat dilihat hanya dari berkas fisik dokumen.</li>
+              <li><strong>Verifikasi Pihak Ketiga (FR.IA.10):</strong> Digunakan sebagai bukti tambahan (T) untuk mengonfirmasi keaslian dan validitas portofolio asesi secara menyeluruh.</li>
+            </ul>
+          </div>
+
+          <!-- 4 Bentuk Bukti Portofolio Sah -->
+          <h4 style="color: var(--primary); margin: 1.5rem 0 0.75rem 0;">4 Bentuk Dokumen Bukti Portofolio Sah</h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-subheader">
+                  <th style="width: 5%;">No</th>
+                  <th style="width: 25%;">Bentuk Bukti</th>
+                  <th style="width: 40%;">Deskripsi Standar</th>
+                  <th style="width: 30%;">Contoh Dokumen Portofolio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td contenteditable="true"><strong>Surat Tugas / Legalitas</strong></td>
+                  <td contenteditable="true">Surat resmi yang diberikan oleh instansi kepada asesi untuk melaksanakan pekerjaan sesuai skema sertifikasi.</td>
+                  <td contenteditable="true">Surat Perintah Tugas (SPT), Surat Kontrak Kerja, SK Pengangkatan Jabatan.</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td contenteditable="true"><strong>Dokumen Hasil Pekerjaan</strong></td>
+                  <td contenteditable="true">Dokumen proses hingga hasil akhir pekerjaan nyata yang dihasilkan oleh asesi.</td>
+                  <td contenteditable="true">Laporan Akhir Pekerjaan (*Summary Report*), Foto Pekerjaan, *Log Book* catatan harian, Rekaman kerja.</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td contenteditable="true"><strong>Surat Rekomendasi / Referensi</strong></td>
+                  <td contenteditable="true">Surat dari pemberi tugas/klien yang menyatakan kewenangan dan integritas asesi dalam menetapkan dokumen kerja.</td>
+                  <td contenteditable="true">Surat Referensi Pemberi Kerja (mencantumkan lama dan jenis pekerjaan), Testimonial Klien/Atasan.</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td contenteditable="true"><strong>Sertifikat Kompetensi</strong></td>
+                  <td contenteditable="true">Sertifikat yang didapat dari uji kompetensi sebelumnya yang menjadi persyaratan lanjutan jabatan.</td>
+                  <td contenteditable="true">Sertifikat Kompetensi BNSP terdahulu, Sertifikat Pelatihan Berbasis Kompetensi Terakreditasi.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FR.IA.08 CVP -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-clipboard-check"></i> Contoh Lengkap FR.IA.08. CVP - CEKLIS VERIFIKASI PORTOFOLIO
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-header">
+                  <th colspan="10">FR.IA.08. CVP – CEKLIS VERIFIKASI PORTOFOLIO</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th rowspan="2" style="width: 5%;">No</th>
+                  <th rowspan="2" style="width: 45%;">Daftar Bukti Portofolio yang Diserahkan Asesi</th>
+                  <th colspan="2" style="text-align: center;">Valid (V)</th>
+                  <th colspan="2" style="text-align: center;">Asli (A)</th>
+                  <th colspan="2" style="text-align: center;">Terkini (T)</th>
+                  <th colspan="2" style="text-align: center;">Memadai (M)</th>
+                </tr>
+                <tr style="background: #f8fafc; font-size: 0.8rem; text-align: center;">
+                  <th>Ya</th><th>Tdk</th><th>Ya</th><th>Tdk</th><th>Ya</th><th>Tdk</th><th>Ya</th><th>Tdk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td contenteditable="true"><strong>Surat Perintah Tugas (SPT)</strong> Jabatan Staf Pengadaan Barang/Jasa No. 102/SPT/2023</td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td contenteditable="true"><strong>Summary Report Hasil Pekerjaan:</strong> Dokumen Rencana Anggaran & HPS Pengadaan Peralatan IT</td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td contenteditable="true"><strong>Surat Rekomendasi & Evaluasi Kinerja</strong> dari Pejabat Pembuat Komitmen (Pemberi Tugas)</td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                  <td align="center"><input type="checkbox" checked /></td><td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tindak Lanjut Materi Wawancara di FR.IA.08 -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-subheader">
+                  <th colspan="4">Sebagai tindak lanjut dari hasil verifikasi bukti, substansi materi di bawah ini harus diklarifikasi selama wawancara:</th>
+                </tr>
+                <tr style="background: #f8fafc; font-size: 0.82rem;">
+                  <th style="width: 8%; text-align: center;">Ceklist</th>
+                  <th style="width: 25%;">No. Unit Kompetensi</th>
+                  <th style="width: 20%;">No. Elemen</th>
+                  <th>Materi / Substansi Wawancara (KUK)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center"><input type="checkbox" checked /></td>
+                  <td contenteditable="true">M.749020.004.02</td>
+                  <td contenteditable="true">Elemen 1 & 2</td>
+                  <td contenteditable="true">Metode survei pasar dan penetapan formula perhitungan Harga Perkiraan Sendiri (HPS).</td>
+                </tr>
+                <tr>
+                  <td align="center"><input type="checkbox" checked /></td>
+                  <td contenteditable="true">M.749020.009.02</td>
+                  <td contenteditable="true">Elemen 1 & 3</td>
+                  <td contenteditable="true">Klausul mitigasi risiko wanprestasi dan rancangan draf kontrak pengadaan barang/jasa.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FR.IA.09 PW Lengkap -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-comments"></i> Contoh Lengkap FR.IA.09. PW - PERTANYAAN WAWANCARA PORTOFOLIO
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-header">
+                  <th colspan="3">FR.IA.09. PW – DAFTAR PERTANYAAN WAWANCARA KLARIFIKASI PORTOFOLIO</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th style="width: 25%;">Bukti Portofolio Terkait</th>
+                  <th style="width: 60%;">Daftar Pertanyaan Wawancara Asesor & Jawaban Asesi</th>
+                  <th style="width: 15%; text-align: center;">Kesesuaian (K/BK)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td contenteditable="true"><strong>Summary Report HPS Pengadaan (Bukti No. 2)</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> <em>"Ceritakan bagaimana langkah-langkah yang Anda tempuh saat memverifikasi keabsahan data survei harga dari tiga vendor berbeda sebelum menetapkan angka akhir pada Dokumen Anggaran HPS?"</em><br/>
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Jawaban Asesi:</strong> Melakukan konfirmasi langsung ke distributor resmi, mengecek riwayat kontrak serupa tahun sebelumnya, dan memperhitungkan inflasi serta PPN 11%.
+                    </div>
+                  </td>
+                  <td align="center"><span class="badge badge-success">&#10004; Memenuhi</span></td>
+                </tr>
+                <tr>
+                  <td contenteditable="true"><strong>Draf Kontrak Pengadaan (Bukti No. 2)</strong></td>
+                  <td contenteditable="true">
+                    <strong>Pertanyaan:</strong> <em>"Ceritakan apa yang Anda lakukan saat menyusun draf kontrak jika penyedia meminta perubahan skema pembayaran uang muka di luar ketentuan yang berlaku?"</em><br/>
+                    <div style="background: #f8fafc; border: 1px dashed var(--border-color); padding: 0.5rem; margin-top: 0.4rem; font-size: 0.82rem; border-radius: 4px;">
+                      <strong>Jawaban Asesi:</strong> Menjelaskan batas toleransi sesuai Perpres Pengadaan dan mewajibkan jaminan uang muka dari bank penerbit terakreditasi.
+                    </div>
+                  </td>
+                  <td align="center"><span class="badge badge-success">&#10004; Memenuhi</span></td>
+                </tr>
+                <tr style="background: #f8fafc;">
+                  <td colspan="3" style="font-size: 0.85rem;" contenteditable="true">
+                    <strong>Catatan Asesor:</strong> Formulir IA.09 tidak mengonfirmasi dimensi kompetensi, tetapi memvalidasi pengetahuan kritikal asesi terhadap dokumen portofolio yang diserahkan.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 6: UJI PENGETAHUAN (EDITABLE)
+           ======================================================== -->
+      <section id="tab-tanyajawab" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-circle-question text-primary"></i> METODE TANYA JAWAB (UJI PENGETAHUAN KRITIKAL)</h3>
+            <span class="badge badge-success"><i class="fa-solid fa-pen-to-square"></i> Klik Teks Untuk Mengedit Manual</span>
+          </div>
+
+          <div style="background: #fffbeb; border-left: 4px solid var(--warning); padding: 1rem 1.25rem; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;">
+            <strong style="color: #92400e;"><i class="fa-solid fa-triangle-exclamation"></i> CATATAN KRITIS ASESOR:</strong>
+            <p style="font-size: 0.88rem; color: #78350f; margin-top: 0.25rem;">
+              Formulir <strong>FR.IA.05A, FR.IA.06A, FR.IA.07, dan FR.IA.09 TIDAK mengonfirmasikan dimensi kompetensi</strong>, melainkan digunakan khusus untuk mengonfirmasi <strong>Pengetahuan Kritikal (Critical Underpinning Knowledge)</strong> yang teridentifikasi dari standar kompetensi yang diujikan.
+            </p>
+          </div>
+
+          <!-- 1. FR.IA.06A DPT Esai (8 Soal Lengkap dari Dokumen) -->
+          <h4 style="color: var(--primary); margin: 1.5rem 0 0.75rem 0;">
+            <i class="fa-solid fa-file-pen"></i> Contoh Lengkap FR.IA.06A. DPT – DAFTAR PERTANYAAN TERTULIS ESAI (Skema MSDM)
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-header">
+                  <th colspan="2">FR.IA.06A. DPT – DAFTAR PERTANYAAN TERTULIS ESAI</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th style="width: 25%;">Skema Sertifikasi:</th>
+                  <th contenteditable="true">Staf (Administrasi) Sumber Daya Manusia (SS.LSP-MSDMPRO.01.001)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="2" style="background: #f8fafc; font-weight: 700;">Jawablah semua pertanyaan esai di bawah ini secara lengkap:</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 1</td>
+                  <td contenteditable="true">Jelaskan bagaimana proses dalam menerapkan kebijakan MSDM yang berlaku di organisasi Anda?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 2</td>
+                  <td contenteditable="true">Komunikasi efektif dalam sebuah perusahaan memiliki manfaat yang sangat penting, karena dengan komunikasi efektif, maka akan terwujud suatu kerja sama yang solid di antara setiap anggota tim kerja. Lalu, bagaimana cara menerapkan teknik komunikasi efektif di perusahaan, agar bisa mendapatkan tim kerja yang solid, efektif dan efisien?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 3</td>
+                  <td contenteditable="true">Pada saat melakukan komunikasi organisasi secara menyeluruh, bagaimana cara Anda menentukan target komunikasi sesuai harapan organisasi?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 4</td>
+                  <td contenteditable="true">Jelaskan, mengapa perusahaan perlu membuat metode dalam menganalisis jabatan?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 5</td>
+                  <td contenteditable="true">Bagaimana langkah-langkah dalam mengumpulkan data dan informasi jabatan?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 6</td>
+                  <td contenteditable="true">Jelaskan, mengapa organisasi perlu menetapkan SOP sesuai dengan kebijakan organisasi tersebut?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 7</td>
+                  <td contenteditable="true">Jelaskan, langkah-langkah dalam penyusunan SOP suatu organisasi?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 700;">Soal 8</td>
+                  <td contenteditable="true">Dalam suatu perusahaan memiliki kebijakan organisasi, apa yang Anda ketahui tentang kebijakan organisasi tersebut?</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2. FR.IA.07 DPL Pertanyaan Lisan (Lengkap Skema Aspal dari Dokumen) -->
+          <h4 style="color: var(--primary); margin: 2rem 0 0.75rem 0;">
+            <i class="fa-solid fa-headset"></i> Contoh Lengkap FR.IA.07. DPL – DAFTAR PERTANYAAN LISAN (Skema Teknisi Lab Beton Aspal)
+          </h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr class="form-table-header">
+                  <th colspan="4">FR.IA.07. DPL – DAFTAR PERTANYAAN LISAN DENGAN KUNCI JAWABAN</th>
+                </tr>
+                <tr class="form-table-subheader">
+                  <th style="width: 25%;">Skema Sertifikasi:</th>
+                  <th colspan="3" contenteditable="true">TEKNISI LABORATORIUM BETON ASPAL</th>
+                </tr>
+                <tr style="background: #f8fafc; font-size: 0.85rem;">
+                  <th style="width: 5%;">No</th>
+                  <th style="width: 55%;">Daftar Pertanyaan Lisan Asesor & Kunci Jawaban</th>
+                  <th style="width: 25%;">Catatan Jawaban Asesi</th>
+                  <th style="width: 15%; text-align: center;">Pencapaian</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="center"><strong>1</strong></td>
+                  <td contenteditable="true">
+                    <strong style="color: var(--primary);">Pertanyaan:</strong><br/>
+                    MENGAPA Kebutuhan Alat Pelindung Diri (APD) dan Alat Pengaman Kerja (APK) serta perlengkapan P3K diidentifikasi untuk seluruh pekerja? (JRES)<br/>
+                    <div style="background: #f8fafc; border-left: 3px solid var(--success); padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.82rem;">
+                      <strong>Kunci Jawaban:</strong> Alat pelindung diri diperlukan untuk melindungi setiap pekerja dari kemungkinan kecelakaan dan kesehatan kerja, terdiri dari: sepatu boot, sarung tangan, helmet, rompi, kacamata, dan masker.
+                    </div>
+                  </td>
+                  <td contenteditable="true"><em>Asesi menjawab lengkap seluruh fungsi APD dan menyebutkan minimal 5 APD standar lab.</em></td>
+                  <td align="center"><label><input type="radio" name="dpl1" checked /> Ya</label> &nbsp; <label><input type="radio" name="dpl1" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>2</strong></td>
+                  <td contenteditable="true">
+                    <strong style="color: var(--primary);">Pertanyaan:</strong><br/>
+                    Jelaskan Apa yang dimaksud dengan Penetrasi aspal keras atau AC 60/70 dan Bagaimana persyaratan agar data pengujian yang diperoleh akurat?<br/>
+                    <div style="background: #f8fafc; border-left: 3px solid var(--success); padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.82rem;">
+                      <strong>Kunci Jawaban:</strong> Penetrasi adalah masuknya jarum ke dalam aspal dengan berat, waktu, dan suhu tertentu sedalam 60/70 unit penetrasi. 1 unit penetrasi = 0,01 mm, jadi masuknya jarum sedalam 6/7 mm. Dari tiga data penetrasi jarum ke dalam aspal secara berurutan, selisih terbesar maksimal 4 untuk aspal penetrasi 50-149.
+                    </div>
+                  </td>
+                  <td contenteditable="true"><em>Asesi menjelaskan rumus unit penetrasi 0,01 mm dan batas toleransi selisih 4 angka.</em></td>
+                  <td align="center"><label><input type="radio" name="dpl2" checked /> Ya</label> &nbsp; <label><input type="radio" name="dpl2" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>3</strong></td>
+                  <td contenteditable="true">
+                    <strong style="color: var(--primary);">Pertanyaan:</strong><br/>
+                    Jelaskan Apa yang dimaksud dengan titik lembek aspal keras? Bagaimana jika dari hasil duplo pengujian titik lembek aspal keras suhunya berbeda lebih dari 1&deg; C?<br/>
+                    <div style="background: #f8fafc; border-left: 3px solid var(--success); padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.82rem;">
+                      <strong>Kunci Jawaban:</strong> Titik lembek adalah suhu saat aspal mulai melembek yang di dalam pengujian ditandai dengan turunnya bola baja yang diselimuti aspal menyentuh pelat di bawahnya. Pengujian harus diulang kembali sampai didapat perbedaan suhu kurang dari 1&deg; C.
+                    </div>
+                  </td>
+                  <td contenteditable="true"><em>Asesi memahami indikator bola baja menyentuh pelat dan prosedur uji ulang.</em></td>
+                  <td align="center"><label><input type="radio" name="dpl3" checked /> Ya</label> &nbsp; <label><input type="radio" name="dpl3" /> Tdk</label></td>
+                </tr>
+                <tr>
+                  <td align="center"><strong>4</strong></td>
+                  <td contenteditable="true">
+                    <strong style="color: var(--primary);">Pertanyaan:</strong><br/>
+                    Mengapa Berat Jenis (BJ) aspal untuk beton aspal harus diuji? Bagaimana agar dari 2 pengujian yang berurutan didapatkan selisih nilai BJ kurang dari 0.02?<br/>
+                    <div style="background: #f8fafc; border-left: 3px solid var(--success); padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.82rem;">
+                      <strong>Kunci Jawaban:</strong> Data BJ aspal diperlukan dalam proses penentuan Kadar Aspal Optimum (KAO) dalam *jobmix formula*. Setiap kali penimbangan dari 4x penimbangan sampel, suhu sampel wajib terjaga stabil pada 25&deg; C.
+                    </div>
+                  </td>
+                  <td contenteditable="true"><em>Asesi menjelaskan korelasi BJ terhadap KAO dan suhu standar uji 25°C.</em></td>
+                  <td align="center"><label><input type="radio" name="dpl4" checked /> Ya</label> &nbsp; <label><input type="radio" name="dpl4" /> Tdk</label></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 7: MATRIKS POTENSI ASESI
+           ======================================================== -->
+      <section id="tab-matriks" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-table-cells text-primary"></i> Matriks Peta Instrumen Asesmen (5 Profil Asesi)</h3>
+            <span class="badge badge-primary">Panduan Rekomendasi MUK</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem;">
+            Pemilihan instrumen asesmen wajib disesuaikan dengan pendekatan awal pada MAPA 01 berdasarkan latar belakang dan karakteristik calon peserta:
+          </p>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Kode Formulir</th>
+                  <th rowspan="2">Nama Instrumen Asesmen</th>
+                  <th colspan="5" style="text-align: center;">Profil Potensi Asesi</th>
+                </tr>
+                <tr>
+                  <th style="font-size: 0.75rem; text-align: center;">1. Pelatihan Tertelusur</th>
+                  <th style="font-size: 0.75rem; text-align: center;">2. Pelatihan Belum Tertelusur</th>
+                  <th style="font-size: 0.75rem; text-align: center;">3. Pengalaman Tertelusur</th>
+                  <th style="font-size: 0.75rem; text-align: center;">4. Pengalaman Belum Tertelusur</th>
+                  <th style="font-size: 0.75rem; text-align: center;">5. Belajar Mandiri</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>FR.IA.01</strong></td>
+                  <td>CL - Ceklis Observasi Praktik / Simulasi</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.02</strong></td>
+                  <td>TPD - Tugas Praktik Demonstrasi</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.03</strong></td>
+                  <td>PMO - Pertanyaan Pendukung Observasi</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.04A/B</strong></td>
+                  <td>DIT - Daftar Instruksi Terstruktur (Level 4+)</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.05/06</strong></td>
+                  <td>DPT - Daftar Pertanyaan Tertulis (PG/Esai)</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.07</strong></td>
+                  <td>DPL - Daftar Pertanyaan Lisan</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.08</strong></td>
+                  <td>CVP - Ceklis Verifikasi Portofolio</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.09</strong></td>
+                  <td>PW - Pertanyaan Wawancara Portofolio</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.10</strong></td>
+                  <td>VPK - Verifikasi Pihak Ketiga</td>
+                  <td align="center">-</td>
+                  <td align="center">-</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center">-</td>
+                </tr>
+                <tr>
+                  <td><strong>FR.IA.11</strong></td>
+                  <td>CRP - Ceklis Reviu Produk</td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                  <td align="center"><i class="fa-solid fa-check text-success"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           TAB 8: STAR SCENARIO GENERATOR
+           ======================================================== -->
+      <section id="tab-generator" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-wand-magic-sparkles text-primary"></i> Generator Skenario Praktik & Proyek (STAR)</h3>
+            <span class="badge badge-success">Otomasi MUK (IA.02 / IA.04A)</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;">
+            Gunakan format narasi terstruktur STAR untuk merumuskan instruksi kerja yang presisi bagi peserta uji kompetensi:
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div>
+              <div class="form-group">
+                <label>Judul Skema / Okupasi</label>
+                <input type="text" id="gen-skema" class="form-control" value="Staf Administrasi Sumber Daya Manusia (MSDM)" />
+              </div>
+              <div class="form-group">
+                <label>Unit Kompetensi Inti</label>
+                <textarea id="gen-unit" class="form-control" rows="2">1. Melaksanakan Administrasi Penerapan Kebijakan MSDM
+2. Membangun Komunikasi Organisasi yang Efektif
+3. Menyusun Uraian Jabatan (Job Description)</textarea>
+              </div>
+              <div class="form-group">
+                <label>Perlengkapan & Acuan Standar</label>
+                <input type="text" id="gen-alat" class="form-control" value="Komputer, Koneksi Internet, Form Analisis Jabatan, SOP MSDM" />
+              </div>
+              <div class="form-group">
+                <label>Target Hasil / Output & Alokasi Waktu</label>
+                <input type="text" id="gen-output" class="form-control" value="Draft Dokumen Uraian Jabatan Lengkap | Durasi: 45 Menit" />
+              </div>
+              <button class="btn btn-primary" onclick="generateSTAR()"><i class="fa-solid fa-bolt"></i> Generate Draft Skenario STAR</button>
+            </div>
+
+            <div>
+              <label style="font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; display: block;">Hasil Rumusan Skenario (Siap Salin):</label>
+              <div id="star-output-box" style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; min-height: 280px; white-space: pre-wrap; line-height: 1.6; color: #1e293b;" contenteditable="true">
+Klik tombol "Generate Draft Skenario STAR" untuk menyusun teks narasi instruksi otomatis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // Tab Navigation Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+
+      const clickedNav = Array.from(document.querySelectorAll('.nav-item')).find(item => 
+        item.getAttribute('onclick') && item.getAttribute('onclick').includes(tabId)
+      );
+      if (clickedNav) {
+        clickedNav.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // STAR Generator Logic
+    function generateSTAR() {
+      const skema = document.getElementById('gen-skema').value.trim();
+      const unit = document.getElementById('gen-unit').value.trim();
+      const alat = document.getElementById('gen-alat').value.trim();
+      const output = document.getElementById('gen-output').value.trim();
+
+      const scenarioText = 
+`[SKENARIO TUGAS PRAKTIK DEMONSTRASI / INSTRUKSI TERSTRUKTUR]
+
+[S] SITUATION (Situasi):
+Dalam rangka mendemonstrasikan kompetensi kerja pada jabatan "${skema}", Anda ditempatkan pada situasi kerja nyata/simulasi di organisasi dan dipersyaratkan melaksanakan pekerjaan sesuai dengan standar operasional prosedur yang berlaku.
+
+[T] TASK (Tugas):
+Anda diminta untuk melaksanakan rangkaian tugas terintegrasi yang mencakup unit-unit kompetensi berikut:
+${unit}
+
+[A] ACTION (Aksi):
+Sebagai tindak lanjut, laksanakan langkah-langkah kerja teknis secara sistematis menggunakan peralatan dan acuan kerja berikut:
+- Peralatan & Bahan: ${alat}
+- Laksanakan seluruh proses dengan mematuhi prinsip K3L, etika komunikasi, dan SOP perusahaan.
+
+[R] RESULT (Hasil):
+Keluaran (output) akhir yang harus diserahkan dan dipresentasikan di hadapan Asesor Kompetensi adalah:
+- ${output}
+
+Catatan Asesor: Lakukan pengamatan pencapaian bukti dan gunakan Pertanyaan Pendukung Observasi (PMO) untuk menguji CMS, JRES, TMS, dan TRS.`;
+
+      document.getElementById('star-output-box').textContent = scenarioText;
+    }
+  </script>
+</body>
+</html>
